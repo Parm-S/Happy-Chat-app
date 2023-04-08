@@ -43,6 +43,7 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {userLoginObject.map((item) => (
           <InputRHF
+            id={item.id}
             name={item.name}
             inputType={item.inputType}
             errors={errors}

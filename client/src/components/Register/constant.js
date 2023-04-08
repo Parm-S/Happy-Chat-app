@@ -1,5 +1,6 @@
 export const userRegisterObject = [
   {
+    id: "register-name",
     name: "name",
     inputType: "text",
     placeholder: "Enter your Name",
@@ -7,6 +8,7 @@ export const userRegisterObject = [
     isRequired: false,
   },
   {
+    id: "register-email",
     name: "email",
     inputType: "text",
     placeholder: "Enter your E-mail",
@@ -14,6 +16,7 @@ export const userRegisterObject = [
     isRequired: false,
   },
   {
+    id: "register-password",
     name: "password",
     inputType: "password",
     placeholder: "Enter your Password",
@@ -21,6 +24,7 @@ export const userRegisterObject = [
     isRequired: false,
   },
   {
+    id: "register-confirm-password",
     name: "confirmPassword",
     inputType: "password",
     placeholder: "Enter your confirm password",

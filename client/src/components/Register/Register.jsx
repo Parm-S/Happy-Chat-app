@@ -46,6 +46,7 @@ const Register = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {userRegisterObject.map((item) => (
           <InputRHF
+            id={item.id}
             name={item.name}
             inputType={item.inputType}
             errors={errors}

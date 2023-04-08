@@ -1,5 +1,6 @@
 export const userLoginObject = [
   {
+    id: "login-email",
     name: "email",
     inputType: "text",
     placeholder: "Enter your E-mail",
@@ -7,6 +8,7 @@ export const userLoginObject = [
     isRequired: false,
   },
   {
+    id: "login-password",
     name: "password",
     inputType: "password",
     placeholder: "Enter your Password",

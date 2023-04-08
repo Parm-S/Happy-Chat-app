@@ -13,6 +13,7 @@ import { Controller } from "react-hook-form";
 const InputRHF = ({
   control,
   label,
+  id,
   name,
   inputType = "text",
   placeholder,
@@ -30,7 +31,7 @@ const InputRHF = ({
         render={({ field, formState: { errors } }) => (
           <InputGroup size="md">
             <Input
-              id={name}
+              id={id}
               name={name}
               p={1.5}
               type={!show && inputType === "password" ? "password" : "text"}
