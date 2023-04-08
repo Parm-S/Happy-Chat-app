@@ -2,13 +2,14 @@ import React from "react";
 
 import { useForm } from "react-hook-form";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { VStack, StackDivider, Button } from "@chakra-ui/react";
 import InputRHF from "../common/InputRHF";
+import FileInputRHF from "../common/FileInputRHF";
 
-import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./schema";
 import { userRegisterObject } from "./constant";
-import FileInputRHF from "../common/FileInputRHF";
 
 const Register = () => {
   const DEFAULT_VALUES = {
@@ -63,6 +64,7 @@ const Register = () => {
         />
         <Button
           mt={4}
+          width={"100%"}
           colorScheme="teal"
           isLoading={isSubmitting}
           type="submit">
