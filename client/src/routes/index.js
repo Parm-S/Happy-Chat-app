@@ -7,10 +7,12 @@ const Chats = lazy(() => import("../pages/Chats"));
 
 export default function Router() {
   let route = useRoutes([
-    { path: "/", element: <Login /> },
     {
       element: <Layout />,
-      children: [{ path: "/chats", element: <Chats /> }],
+      children: [
+        { path: "/", element: <Login /> },
+        { path: "/chats", element: <Chats /> },
+      ],
     },
   ]);
 
