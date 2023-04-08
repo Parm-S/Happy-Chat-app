@@ -10,6 +10,8 @@ import InputRHF from "../common/InputRHF";
 import { loginSchema } from "./schema";
 import { userLoginObject } from "./constant";
 
+import data from "../../data.json";
+
 const Login = () => {
   const DEFAULT_VALUES = {
     email: "",
@@ -24,11 +26,14 @@ const Login = () => {
     resolver: yupResolver(loginSchema),
     defaultValues: DEFAULT_VALUES,
   });
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function onSubmit(values) {
+    setIsLoading(true);
     console.log(values);
     return new Promise((resolve) => {
       setTimeout(() => {
+        setIsLoading(false);
         alert(JSON.stringify(values, null, 2));
         resolve();
       }, 3000);
@@ -60,9 +65,18 @@ const Login = () => {
           colorScheme="teal"
           isLoading={isSubmitting}
           type="submit">
-          Submit
+          {data.login.title}
         </Button>
       </form>
+      <Button
+        width={"100%"}
+        colorScheme="red"
+        isLoading={isLoading}
+        onClick={() =>
+          onSubmit({ email: "guest@example.com", password: "123456" })
+        }>
+        {data.login.guestLoginbutton}
+      </Button>
     </VStack>
   );
 };

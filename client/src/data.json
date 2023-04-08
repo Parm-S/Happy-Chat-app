@@ -9,5 +9,12 @@
       "id": 2,
       "name": "Register"
     }
-  ]
+  ],
+  "login": {
+    "title": "Login",
+    "guestLoginbutton": "Login with Guest User"
+  },
+  "register": {
+    "title": "Register"
+  }
 }

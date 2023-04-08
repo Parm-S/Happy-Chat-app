@@ -11,6 +11,8 @@ import FileInputRHF from "../common/FileInputRHF";
 import { registerSchema } from "./schema";
 import { userRegisterObject } from "./constant";
 
+import data from "../../data.json";
+
 const Register = () => {
   const DEFAULT_VALUES = {
     name: "",
@@ -69,7 +71,7 @@ const Register = () => {
           colorScheme="teal"
           isLoading={isSubmitting}
           type="submit">
-          Submit
+          {data.register.title}
         </Button>
       </form>
     </VStack>
