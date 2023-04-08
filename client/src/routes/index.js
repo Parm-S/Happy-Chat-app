@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../Layout";
 
-const Login = lazy(() => import("../pages/Login"));
+const Home = lazy(() => import("../pages/Home"));
 const Chats = lazy(() => import("../pages/Chats"));
 
 export default function Router() {
@@ -10,7 +10,7 @@ export default function Router() {
     {
       element: <Layout />,
       children: [
-        { path: "/", element: <Login /> },
+        { path: "/", element: <Home /> },
         { path: "/chats", element: <Chats /> },
       ],
     },
