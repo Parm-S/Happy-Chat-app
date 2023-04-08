@@ -1,7 +1,9 @@
+import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../Layout";
-import Login from "../pages/Login";
-import Chats from "../pages/Chats";
+
+const Login = lazy(() => import("../pages/Login"));
+const Chats = lazy(() => import("../pages/Chats"));
 
 export default function Router() {
   let route = useRoutes([
