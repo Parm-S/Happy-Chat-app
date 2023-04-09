@@ -3,6 +3,7 @@ import { PORT } from "./config/index.js";
 import { connectDB } from "./DB/connection.js";
 import colors from "colors";
 import { router } from "./route/index.js";
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 colors.setTheme({
   silly: "rainbow",
@@ -27,5 +28,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, console.log(`Server started on Port - ${PORT}`.info));
