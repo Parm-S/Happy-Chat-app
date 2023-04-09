@@ -2,7 +2,7 @@
 
 ### Server
 
-\*\*\*\* ##### add .env file
+##### add .env file
 
 - PORT
 - MONGO_DB_URI
