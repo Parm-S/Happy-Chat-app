@@ -17,7 +17,10 @@ const registerUser = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "User already Exist" });
     }
 
-    const user = await createUser({ ...req.body, email: email.toLowercase() });
+    const user = await createUser({
+      ...req.body,
+      email: email.toString().toLowerCase(),
+    });
 
     if (user) {
       return res
