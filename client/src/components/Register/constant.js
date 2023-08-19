@@ -31,4 +31,20 @@ export const userRegisterObject = [
     label: "Confirm Password",
     isRequired: false,
   },
+  {
+    id: "register-date-of-birth",
+    name: "dateOfBirth",
+    inputType: "date",
+    placeholder: "Select your date of birth",
+    label: "Date of Birth",
+    isRequired: false,
+  },
+  {
+    id: "register-phone-no",
+    name: "phoneNumber",
+    inputType: "text",
+    placeholder: "Enter your Phone Number",
+    label: "Phone Number",
+    isRequired: false,
+  },
 ];

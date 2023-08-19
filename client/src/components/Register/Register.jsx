@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { VStack, StackDivider, Button } from "@chakra-ui/react";
+import { VStack, StackDivider, Button, useToast } from "@chakra-ui/react";
+
 import InputRHF from "../common/InputRHF";
 import FileInputRHF from "../common/FileInputRHF";
 
@@ -12,6 +13,7 @@ import { registerSchema } from "./schema";
 import { userRegisterObject } from "./constant";
 
 import data from "../../data.json";
+import { registerUser } from "../../api";
 
 const Register = () => {
   const DEFAULT_VALUES = {
@@ -30,8 +32,74 @@ const Register = () => {
     defaultValues: DEFAULT_VALUES,
   });
 
+  const toast = useToast();
+
+  const saveUser = React.useCallback(
+    (payload) => {
+      registerUser(data)
+        .then((res) => {
+          console.log(res);
+          toast({
+            title: "Registration Successful",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            title: "Unable to save the detail of user.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+        });
+    },
+    [toast]
+  );
+
   function onSubmit(values) {
     console.log(values);
+    const payload = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      phoneNumber: values.phoneNumber,
+      dateOfBirth: values.dateOfBirth.toISOString(),
+    };
+    console.log(values.pic.type);
+    if (values.pic) {
+      if (
+        values.pic.type === "image/jpeg" ||
+        values.pic.type === "image/png" ||
+        values.pic.type === "image/jpg"
+      ) {
+        const data = new FormData();
+        data.append("file", values.pic);
+        data.append("upload_preset", "happy-chat-app");
+        data.append("cloud_name", "dsv1jmss1");
+        fetch("https://api.cloudinary.com/v1_1/dsv1jmss1/image/upload", {
+          method: "post",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((item) => (payload["pic"] = item.url.toString()))
+          .catch((err) => console.log(err));
+      } else {
+        toast({
+          title: "Select an Image",
+          description: "Image must be .jpeg,.jpg or .png",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    } else {
+    }
     return new Promise((resolve) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));

@@ -22,6 +22,16 @@ const InputRHF = ({
 }) => {
   const [show, setShow] = React.useState(false);
 
+  const userInputType = React.useMemo(() => {
+    if (!show && inputType === "password") {
+      return "password";
+    } else if (show && inputType === "password") {
+      return "text";
+    } else {
+      return inputType;
+    }
+  }, [show, inputType]);
+
   return (
     <FormControl isInvalid={errors[name]} isRequired={isRequired}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
@@ -34,9 +44,14 @@ const InputRHF = ({
               id={id}
               name={name}
               p={1.5}
-              type={!show && inputType === "password" ? "password" : "text"}
+              type={userInputType}
               placeholder={placeholder}
               onChange={(e) => field.onChange(e.target.value)}
+              max={
+                inputType === "date"
+                  ? new Date().toISOString().split("T")[0]
+                  : ""
+              }
             />
             {inputType === "password" && (
               <InputRightElement width={"4.5rem"}>
