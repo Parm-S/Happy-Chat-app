@@ -8,3 +8,5 @@ export const JWT_SECRET = process.env.JWT_SECRET;
 export const JWT_EXPIRES = process.env.JWT_EXPIRES;
 export const ENCRYPTION_SALT = process.env.ENCRYPTION_SALT;
 export const NODE_ENV = process.env.NODE_ENV;
+export const RETENTION_PERIOD = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
+export const CLEAN_UP_RUN = 24 * 60 * 60 * 1000;

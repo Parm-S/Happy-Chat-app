@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 
 import { getUserByEmail, createUser } from "../Repository/index.js";
-import { generateToken } from "../../config/generateToken.js";
+import { generateToken } from "../../../config/generateToken.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   try {

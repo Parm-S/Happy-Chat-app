@@ -4,6 +4,8 @@ import { connectDB } from "./DB/connection.js";
 import colors from "colors";
 import { router } from "./route/index.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
+import swaggerUi from "swagger-ui-express";
+import specs, { swaggerUiMiddleware } from "./swaggerDoc/swagger.js";
 
 colors.setTheme({
   silly: "rainbow",
@@ -28,6 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router);
+app.use("/api-docs", swaggerUi.serve, swaggerUiMiddleware);
 
 app.use(notFound);
 app.use(errorHandler);

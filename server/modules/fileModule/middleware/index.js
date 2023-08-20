@@ -2,6 +2,7 @@
 
 import express from "express";
 import path from "path";
+import { fileURLToPath } from "url";
 import multer from "multer";
 import fs from "fs";
 import { config } from "../config/index.js";
@@ -59,7 +60,9 @@ const uploadMultiple = multer({
     fileSize: config.maxFileSize,
   },
 }).array("files", config.maxSize);
-
-router.use("/public", express.static(path.join(__dirname, "../public")));
+const currentFilePath = fileURLToPath(import.meta.url);
+const currentDir = path.dirname(currentFilePath);
+// Use the resolved directory path to serve static files
+router.use("/public", express.static(path.join(currentDir, "../public")));
 
 export { uploadSingle, uploadMultiple };
