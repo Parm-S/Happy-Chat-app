@@ -5,12 +5,23 @@ import path from "path";
 import fs from "fs";
 import { NODE_ENV } from "../config/index.js";
 
-// Create log directory if it doesn't exist
-const logDirectory = path.join(__dirname, "..", "logs");
-if (!fs.existsSync(logDirectory)) {
-  fs.mkdirSync(logDirectory);
+const __filename = import.meta.url.slice(7); // Remove 'file://' from the URL
+const __dirname = path.dirname(__filename);
+console.log(__dirname);
+// Create log directory if it doesn't exist path.normalize(path.join(os.homedir(), "logs"));
+const logDirectory = decodeURI(
+  path.normalize(path.join(__dirname, "..", "logs"))
+);
+console.log(decodeURI(logDirectory));
+async function createLogDirectory() {
+  try {
+    await fs.mkdirSync(decodeURI(logDirectory), { recursive: true });
+    console.log("Log directory created:", logDirectory);
+  } catch (error) {
+    console.error("Error creating log directory:", error);
+  }
 }
-
+createLogDirectory();
 const logFormat = winston.format.combine(
   winston.format.label({ label: "FileUploadApp" }),
   winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),

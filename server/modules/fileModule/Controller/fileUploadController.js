@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import multer from "multer";
 import { uploadSingle, uploadMultiple } from "../middleware/index.js";
 import {
   ERROR_FILE_NOT_FOUND,
@@ -30,6 +31,7 @@ const addSingleFile = (req, res, next) => {
   uploadSingle(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // Multer-related errors
+
       return res
         .status(400)
         .json({ error: "Multer error", message: err.message });
@@ -39,6 +41,7 @@ const addSingleFile = (req, res, next) => {
         .json({ error: ERROR_MISSING_FILE.message });
     } else if (err) {
       // Other errors
+
       return res
         .status(ERROR_UPLOAD_FAILED.code)
         .json({ error: ERROR_UPLOAD_FAILED.message, message: err.message });
@@ -46,6 +49,7 @@ const addSingleFile = (req, res, next) => {
 
     if (!req.file) {
       // Handle the case where the file field name is incorrect or missing
+
       return res
         .status(ERROR_MISSING_FILE.code)
         .json({ error: ERROR_MISSING_FILE.message });
@@ -54,6 +58,7 @@ const addSingleFile = (req, res, next) => {
     const fileUrl = `${req.protocol}://${req.get("host")}/file/public/${
       req.file.filename
     }`;
+
     res
       .status(SUCCESS_FILE_UPLOAD.code)
       .json({ message: SUCCESS_FILE_UPLOAD.message, fileUrl });

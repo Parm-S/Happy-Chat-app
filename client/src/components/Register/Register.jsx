@@ -14,8 +14,10 @@ import { userRegisterObject } from "./constant";
 
 import data from "../../data.json";
 import { registerUser } from "../../api";
+import { uploadSingleImage } from "../../api/fileUploadApi";
 
 const Register = () => {
+  const [progress, setProgress] = React.useState(0);
   const DEFAULT_VALUES = {
     name: "",
     email: "",
@@ -61,7 +63,30 @@ const Register = () => {
     [toast]
   );
 
-  function onSubmit(values) {
+  const imageUpload = async (formData) => {
+    try {
+      const response = await uploadSingleImage(formData, (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setProgress(percentCompleted);
+      });
+      toast({
+        title: "Profile picture uploaded successfully",
+        description: "",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      console.log("Image upload response:", response.data);
+      return response;
+    } catch (error) {
+      console.error("Image upload error:", error);
+    }
+  };
+
+  async function onSubmit(values) {
     console.log(values);
     const payload = {
       name: values.name,
@@ -79,15 +104,7 @@ const Register = () => {
       ) {
         const data = new FormData();
         data.append("file", values.pic);
-        data.append("upload_preset", "happy-chat-app");
-        data.append("cloud_name", "dsv1jmss1");
-        fetch("https://api.cloudinary.com/v1_1/dsv1jmss1/image/upload", {
-          method: "post",
-          body: data,
-        })
-          .then((res) => res.json())
-          .then((item) => (payload["pic"] = item.url.toString()))
-          .catch((err) => console.log(err));
+        await imageUpload(data);
       } else {
         toast({
           title: "Select an Image",

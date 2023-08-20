@@ -17,4 +17,6 @@ const registerUser = async (data) => {
   }
 };
 
+
+
 export { registerUser };

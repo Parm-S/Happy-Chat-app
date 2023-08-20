@@ -1,11 +1,10 @@
 import e from "express";
+import cors from "cors";
 import { PORT } from "./config/index.js";
 import { connectDB } from "./DB/connection.js";
 import colors from "colors";
 import { router } from "./route/index.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
-import swaggerUi from "swagger-ui-express";
-import specs, { swaggerUiMiddleware } from "./swaggerDoc/swagger.js";
 
 colors.setTheme({
   silly: "rainbow",
@@ -23,6 +22,23 @@ colors.setTheme({
 const app = e();
 connectDB();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://your-production-domain.com",
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
 app.use(e.json());
 
 app.get("/", (req, res) => {
@@ -30,7 +46,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router);
-app.use("/api-docs", swaggerUi.serve, swaggerUiMiddleware);
 
 app.use(notFound);
 app.use(errorHandler);
