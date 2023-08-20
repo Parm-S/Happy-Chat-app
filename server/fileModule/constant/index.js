@@ -7,8 +7,12 @@ import {
   ERROR_UPLOAD_FAILED,
   ERROR_FOLDER_CREATION_FAILED,
 } from "./errorMessages/index.js";
+import {
+  SUCCESS_FILES_UPLOAD,
+  SUCCESS_FILE_UPLOAD,
+} from "./successMessages/index.js";
 
-export const errorMessages = {
+export {
   ERROR_FILE_NOT_FOUND,
   ERROR_FILE_SIZE_LIMIT,
   ERROR_MISSING_FILE,
@@ -16,4 +20,6 @@ export const errorMessages = {
   ERROR_UNSUPPORTED_FILE_TYPE,
   ERROR_UPLOAD_FAILED,
   ERROR_FOLDER_CREATION_FAILED,
+  SUCCESS_FILES_UPLOAD,
+  SUCCESS_FILE_UPLOAD,
 };

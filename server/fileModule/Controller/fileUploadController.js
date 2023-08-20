@@ -1,5 +1,3 @@
-// fileUploadModule/fileUpload.js
-
 import path from "path";
 import fs from "fs";
 import { uploadSingle, uploadMultiple } from "../middleware/index.js";
@@ -8,6 +6,8 @@ import {
   ERROR_MISSING_FILE,
   ERROR_MISSING_FILES,
   ERROR_UPLOAD_FAILED,
+  SUCCESS_FILES_UPLOAD,
+  SUCCESS_FILE_UPLOAD,
 } from "../constant/index.js";
 
 const getFile = (req, res, next) => {
@@ -46,7 +46,9 @@ const addSingleFile = (req, res, next) => {
     const fileUrl = `${req.protocol}://${req.get("host")}/file/public/${
       req.file.filename
     }`;
-    res.status(200).json({ message: "File uploaded successfully", fileUrl });
+    res
+      .status(SUCCESS_FILE_UPLOAD.code)
+      .json({ message: SUCCESS_FILE_UPLOAD.message, fileUrl });
   });
 };
 
@@ -73,7 +75,9 @@ const addMultipleFile = (req, res, next) => {
       (file) =>
         `${req.protocol}://${req.get("host")}/file/public/${file.filename}`
     );
-    res.status(200).json({ message: "Files uploaded successfully", fileUrls });
+    res
+      .status(SUCCESS_FILES_UPLOAD.code)
+      .json({ message: SUCCESS_FILES_UPLOAD.message, fileUrls });
   });
 };
 
